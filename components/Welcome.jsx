@@ -82,6 +82,7 @@ export default function Welcome(props) {
           Smart Fields
         </Text>
         <Text
+        className="uppercase"
           style={{
             fontSize: hp(2),
             fontWeight: "500",
@@ -89,7 +90,7 @@ export default function Welcome(props) {
             letterSpacing: 1,
           }}
         >
-          Agriculture's Saviour
+          Agric made easier with Tech
         </Text>
       </View>
     </Animated.View>

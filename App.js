@@ -4,13 +4,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/HomeScreen";
 import Welcome from "./components/Welcome";
+import "./style.css"
+import Blog from "./components/Blog";
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="welcome">
+      <Stack.Navigator initialRouteName="home">
         <Stack.Screen
           name="welcome"
           component={Welcome}
@@ -19,6 +22,11 @@ export default function App() {
         <Stack.Screen
           name="home"
           component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="blog"
+          component={Blog}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
