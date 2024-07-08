@@ -4,7 +4,7 @@
     "slug": "SmartFields",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logoandtext.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -21,7 +21,7 @@
       }
     },
     "web": {
-      "bundler": "metro"
+      "favicon": "./assets/favicon.png"
     }
   }
 }
