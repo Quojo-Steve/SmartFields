@@ -16,37 +16,72 @@ import { useNavigation } from "@react-navigation/native";
 const Navbar = () => {
   const navigation = useNavigation();
   return (
-    <View className="flex justify-between items-center flex-row absolute w-full py-4 px-5 shadow-xl shadow-gray-400 bottom-10 rounded-[40px] bg-slate-300">
-      <View className="flex flex-row justify-between items-center w-[30%]">
-        <Pressable className="flex flex-col items-center">
-          <HomeIcon size={hp(4)} className="text-gray-400" />
-          <Text className="text-gray-400">Home</Text>
-        </Pressable>
+    <View className="absolute w-full flex justify-between items-center bottom-10 px-4">
+      <View className="flex justify-between items-center flex-row w-full py-4 px-8 rounded-[50px] bg-[#FFFFFF] shadow-md h-[95px]">
+        <View className="flex flex-row justify-between items-center w-[30%]">
+          <Pressable className="flex flex-col items-center">
+            <View className="flex justify-center items-center gap-2">
+              <Image
+                source={require("../assets/images/home.png")}
+                className="h-[24px] w-[24px]"
+              />
+              <Text className="text-[#7D7B7B] text-[12px] font-[600]">
+                Home
+              </Text>
+            </View>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("blog")}
+            className="flex flex-col items-center"
+          >
+            <View className="flex justify-center items-center gap-2">
+              <Image
+                source={require("../assets/images/blog.png")}
+                className="h-[24px] w-[24px]"
+              />
+              <Text className="text-[#7D7B7B] text-[12px] font-[600]">
+                Blog
+              </Text>
+            </View>
+          </Pressable>
+        </View>
+
         <Pressable
-          onPress={() => navigation.navigate("blog")}
-          className="flex flex-col items-center"
-        >
-          <NewspaperIcon size={hp(4)} className="text-gray-400" />
-          <Text className="text-gray-400">Blog</Text>
-        </Pressable>
-      </View>
-      <View className="absolute left-1/2 transform -translate-x-1/2 bottom-1/2">
-        <Pressable
-          className="w-[90px] h-[90px] bg-green-600 rounded-full items-center justify-center shadow-lg shadow-green-600"
+          className="w-[90px] h-[90px] bg-[#048232] rounded-full items-center justify-center relative top-[-50px]"
           onPress={() => navigation.navigate("home")}
         >
-          <CameraIcon size={hp(6)} className="text-white" />
+          <View className="flex justify-center items-center gap-2">
+            <Image
+              source={require("../assets/images/camera.png")}
+              className="h-[40px] w-[40px]"
+            />
+          </View>
         </Pressable>
-      </View>
-      <View className="flex flex-row justify-between items-center w-[35%]">
-        <Pressable className="flex flex-col items-center">
-          <ClockIcon size={hp(4)} className="text-gray-400" />
-          <Text className="text-gray-400">History</Text>
-        </Pressable>
-        <Pressable className="flex flex-col items-center">
-          <UserIcon size={hp(4)} className="text-gray-400" />
-          <Text className="text-gray-400">Profile</Text>
-        </Pressable>
+
+        <View className="flex flex-row justify-between items-center w-[30%]">
+          <Pressable className="flex flex-col items-center">
+            <View className="flex justify-center items-center gap-2">
+              <Image
+                source={require("../assets/images/history.png")}
+                className="h-[24px] w-[24px]"
+              />
+              <Text className="text-[#7D7B7B] text-[12px] font-[600]">
+                History
+              </Text>
+            </View>
+          </Pressable>
+          <Pressable className="flex flex-col items-center">
+            <View className="flex justify-center items-center gap-2">
+              <Image
+                source={require("../assets/images/profile.png")}
+                className="h-[24px] w-[24px]"
+              />
+              <Text className="text-[#7D7B7B] text-[12px] font-[600]">
+                Profile
+              </Text>
+            </View>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
