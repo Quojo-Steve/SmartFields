@@ -1,10 +1,28 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, View } from "react-native";
 import React from "react";
+import SearchBar from "../components/SearchBar";
+import NoteSvg from "../assets/Svg/NoteSvg";
+import BlogFilter from "../components/BlogFilter";
+import BlogPosts from "../components/BlogPosts";
 
 const BlogScreen = () => {
   return (
-    <View className="min-h-screen flex flex-col items-center overflow-hidden px-4 pt-[70px]">
-      <Text>Blog</Text>
+    <View className="min-h-screen flex flex-col overflow-hidden pt-[60px] bg-[#FAFBFC]">
+      <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
+      <View className="bg-white h-[126px] p-4 w-full">
+        <View className="flex flex-row">
+          <SearchBar />
+          <View className="bg-[#048232] flex-1 justify-center items-center rounded-[10px] ml-3">
+            <NoteSvg />
+          </View>
+        </View>
+        <View className="mt-3">
+          <BlogFilter />
+        </View>
+      </View>
+      <View className="mt-[10px]">
+        <BlogPosts />
+      </View>
     </View>
   );
 };

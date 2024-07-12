@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Pressable, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Pressable, Image, Button, StatusBar } from "react-native";
 import React from "react";
 
 const HomeScreen = () => {
   return (
-    <View className="min-h-screen flex flex-col items-center overflow-hidden px-4 pt-[70px]">
+    <View className="min-h-screen flex flex-col items-center overflow-hidden px-4 pt-[70px]  bg-[#FAFBFC]">
+      <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
       <View className="w-full flex items-center justify-center">
         <Image
           source={require("../assets/plant.png")}
