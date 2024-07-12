@@ -22,7 +22,7 @@ export default function Welcome(props) {
       ring2padding.value = withSpring(ring2padding.value + hp(5.5));
     }, 100);
 
-    setTimeout(() => props.navigation.navigate("home"), 2500);
+    setTimeout(() => props.navigation.navigate("homePage"), 2500);
   }, []);
 
   const ring1Style = useAnimatedStyle(() => {

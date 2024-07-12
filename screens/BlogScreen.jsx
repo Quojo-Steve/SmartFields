@@ -1,16 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import Navbar from '../components/Navbar'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 const BlogScreen = () => {
   return (
-    <View className="relative min-h-screen mx-4 flex flex-col items-center overflow-hidden">
+    <View className="min-h-screen flex flex-col items-center overflow-hidden px-4 pt-[70px]">
       <Text>Blog</Text>
-     <Navbar />
     </View>
-  )
-}
+  );
+};
 
-export default BlogScreen
+export default BlogScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

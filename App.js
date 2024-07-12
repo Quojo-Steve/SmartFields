@@ -6,28 +6,19 @@ import HomeScreen from "./screens/HomeScreen";
 import Welcome from "./screens/WelcomeScreen";
 // import "./style.css";
 import BlogScreen from "./screens/BlogScreen";
+import Tabs from "./navigations/Tabs";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="welcome">
-        <Stack.Screen
-          name="welcome"
-          component={Welcome}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="blog"
-          component={BlogScreen}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator
+        initialRouteName="welcome"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="welcome" component={Welcome} />
+        <Stack.Screen name="homePage" component={Tabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );
