@@ -54,7 +54,8 @@ const HomeScreen = () => {
           type: "image/jpeg",
         });
 
-        const apiUrl = "http://172.20.10.3:8000/api/ai/getAIData";
+        // const apiUrl = "http://172.20.10.3:8000/api/ai/getAIData";
+        const apiUrl = "https://smartfield-api.onrender.com/api/ai/getAIData";
 
         const response = await axios.post(apiUrl, formData, {
           headers: {
@@ -142,6 +143,7 @@ const HomeScreen = () => {
               {!prediction ? (
                 <View className="h-[400px] w-full flex justify-center items-center">
                   <ActivityIndicator size={"small"} color={"#048232"}/>
+                  <Text className="text-[#02020291] mt-4">One moment please...</Text>
                 </View>
               ) : (
                 <View className="w-full">

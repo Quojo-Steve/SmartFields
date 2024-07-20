@@ -73,6 +73,7 @@ const BlogPosts = () => {
         ) : (
           <View className="h-[600px] w-full flex justify-center items-center">
             <ActivityIndicator size={"large"} color={"#048232"} />
+            <Text className="text-[#02020291] mt-4">One moment please...</Text>
           </View>
         )}
         <View className="h-[350px]"></View>
