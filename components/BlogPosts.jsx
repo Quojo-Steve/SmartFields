@@ -1,19 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Image, Text, View, ScrollView } from "react-native";
+import { Image, Text, View, ScrollView, ActivityIndicator } from "react-native";
 import {
   HandThumbUpIcon,
   PaperAirplaneIcon,
 } from "react-native-heroicons/outline";
 
 const BlogPosts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
 
   const setUp = async () => {
     try {
       const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
       setPosts(res.data);
-    //   console.log(res.data.splice(0, 1));
+      //   console.log(res.data.splice(0, 1));
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +24,7 @@ const BlogPosts = () => {
   return (
     <View className="w-full px-4">
       <ScrollView className="pt-[10px]">
-        {posts &&
+        {posts ? (
           posts.map((post, index) => (
             <View className="my-4" key={index}>
               <View className="flex flex-row gap-2 items-center">
@@ -69,7 +69,12 @@ const BlogPosts = () => {
                 </Text>
               </View>
             </View>
-          ))}
+          ))
+        ) : (
+          <View className="h-[600px] w-full flex justify-center items-center">
+            <ActivityIndicator size={"large"} color={"#048232"} />
+          </View>
+        )}
         <View className="h-[350px]"></View>
       </ScrollView>
     </View>
