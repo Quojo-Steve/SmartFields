@@ -22,7 +22,7 @@ export default function Welcome(props) {
       ring2padding.value = withSpring(ring2padding.value + hp(5.5));
     }, 100);
 
-    setTimeout(() => props.navigation.navigate("homePage"), 2500);
+    setTimeout(() => props.navigation.navigate("firstPage"), 2500);
   }, []);
 
   const ring1Style = useAnimatedStyle(() => {
@@ -45,7 +45,7 @@ export default function Welcome(props) {
         justifyContent: "center",
         padding: 20,
       }}
-      className="bg-green-600"
+      className="bg-[#17A34A]"
     >
       <StatusBar style="light" />
 
@@ -82,7 +82,7 @@ export default function Welcome(props) {
           Smart Fields
         </Text>
         <Text
-        className="uppercase"
+          className="uppercase"
           style={{
             fontSize: hp(2),
             fontWeight: "500",
