@@ -28,7 +28,6 @@ const SignupScreen = ({ navigation }) => {
             <Text
               className="text-[#F5F5F5] mb-4"
               style={{
-                fontFamily: "Segoe UI",
                 fontSize: 30,
                 fontWeight: 600,
                 lineHeight: 39.9,
@@ -40,7 +39,6 @@ const SignupScreen = ({ navigation }) => {
             <Text
               className="text-[#F5F5F5] mb-9"
               style={{
-                fontFamily: "Segoe UI",
                 fontSize: 14,
                 fontWeight: 400,
                 lineHeight: 18.62,
@@ -112,7 +110,6 @@ const SignupScreen = ({ navigation }) => {
             className="mb-8 text-center"
             onPress={() => navigation.navigate("login")}
             style={{
-              fontFamily: "Segoe UI",
               fontSize: 12,
               fontWeight: 600,
               lineHeight: 15.96,
