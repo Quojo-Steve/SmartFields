@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,13 +10,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as tf from "@tensorflow/tfjs";
-import * as mobilenet from "@tensorflow-models/mobilenet";
 import axios from "axios";
 import FormattedText from "../components/FormattedText";
+import { AuthContext } from "../contex/AuthContex";
 // import { fetch } from '@tensorflow/tfjs-react-native';
 
 const HomeScreen = () => {
+  const { Url } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [prediction, setPrediction] = useState(null);
 
@@ -54,8 +54,7 @@ const HomeScreen = () => {
           type: "image/jpeg",
         });
 
-        // const apiUrl = "http://172.20.10.3:8000/api/ai/getAIData";
-        const apiUrl = "https://smartfield-api.onrender.com/api/ai/getAIData";
+        const apiUrl = Url + "/ai/getAIData";
 
         const response = await axios.post(apiUrl, formData, {
           headers: {

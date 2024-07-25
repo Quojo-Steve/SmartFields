@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   StatusBar,
   TouchableOpacity,
@@ -9,11 +9,37 @@ import {
   Platform,
   Text,
   View,
+  ActivityIndicator,
 } from "react-native";
+import { AuthContext } from "../contex/AuthContex";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const LoginScreen = ({ navigation }) => {
+  const { login } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setisLoading] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      if (!email || !password) return Toast.error("Fill all required fields!");
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) return Toast.error("Enter valid email");
+      setisLoading(true)
+
+      const res = await login(email, password);
+      // console.log(res);
+      navigation.navigate("homePage");
+      setisLoading(false)
+    } catch (error) {
+      setisLoading(false)
+      console.log(error.response.data);
+      Toast.error(error.response.data.message || "Something went wrong...");
+    }
+  };
   return (
     <View className="flex-1 bg-[#17A34A]">
+      <ToastManager />
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className="h-[68%] w-full">
         <ImageBackground
@@ -66,7 +92,13 @@ const LoginScreen = ({ navigation }) => {
                 tintColor: "#7D7B7B",
               }}
             />
-            <TextInput placeholder="Email" className="flex-1 p-1 ml-2" />
+            <TextInput
+              placeholder="Email"
+              className="flex-1 p-1 ml-2"
+              onChangeText={(text) => setEmail(text)}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
           </View>
           <View className="bg-[#F2F5F7] p-3 rounded-lg flex items-center flex-row mb-2">
             <Image
@@ -81,6 +113,7 @@ const LoginScreen = ({ navigation }) => {
             <TextInput
               placeholder="Password"
               className="flex-1 p-1 ml-2"
+              onChangeText={(text) => setPassword(text)}
               secureTextEntry
             />
           </View>
@@ -96,11 +129,16 @@ const LoginScreen = ({ navigation }) => {
           </Text>
           <TouchableOpacity
             className="bg-[#17A34A] p-3 rounded-xl mb-4"
-            onPress={() => navigation.navigate("homePage")}
+            onPress={handleLogin}
+            disabled={isLoading}
           >
-            <Text className="text-center text-sm font-semibold text-white">
-              Log In
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator size={"small"} color={"#fff"} />
+            ) : (
+              <Text className="text-center text-sm font-semibold text-white">
+                Log In
+              </Text>
+            )}
           </TouchableOpacity>
           <Text
             className="mb-8 text-center text-[#7D7B7B]"
