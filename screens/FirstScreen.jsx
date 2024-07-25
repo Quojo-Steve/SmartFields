@@ -12,18 +12,18 @@ const FirstScreen = ({ navigation }) => {
   return (
     <View className="min-h-screen flex flex-col items-center overflow-hidden bg-[#17A34A]">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <View className="h-[70%] w-full ">
+      <View className="h-[68%] w-full ">
         <ImageBackground
           source={require("../assets/images/image.png")}
           className="h-full w-full"
-          resizeMode="cover"
+          resizeMode="contain"
         >
-          <Text className="text-base font-bold text-white mt-[35px] ml-4">
+          <Text className="text-base font-bold text-white mt-[40px] ml-4">
             SMARTFIELDS
           </Text>
         </ImageBackground>
       </View>
-      <View className=" w-full px-4 absolute bottom-12">
+      <View className=" w-full px-4 absolute bottom-14">
         <Text
           className="text-[#F5F5F5] mb-4"
           style={{
@@ -37,7 +37,7 @@ const FirstScreen = ({ navigation }) => {
         </Text>
 
         <Text
-          className="text-[#F5F5F5] mb-9"
+          className="text-[#E9F2F4] mb-9"
           style={{
             fontSize: 14,
             fontWeight: 400,
@@ -49,7 +49,7 @@ const FirstScreen = ({ navigation }) => {
           accusantium doloremque laudantium.
         </Text>
         <TouchableOpacity
-          className="bg-white p-3 rounded-xl mb-4"
+          className="bg-white p-3 rounded-[10px] mb-4 h-[45px]"
           onPress={() => navigation.navigate("login")}
         >
           <Text className="text-center text-sm font-semibold text-[#17A34A]">
@@ -57,7 +57,7 @@ const FirstScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-transparent border border-white p-3 rounded-xl"
+          className="bg-transparent border border-white p-3 rounded-[10px] h-[45px]"
           onPress={() => navigation.navigate("signup")}
         >
           <Text className="text-center text-sm font-semibold text-white">

@@ -15,13 +15,13 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View className="flex-1 bg-[#17A34A]">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <View className="h-[70%] w-full">
+      <View className="h-[68%] w-full">
         <ImageBackground
           source={require("../assets/images/image.png")}
           className="h-full w-full"
           resizeMode="cover"
         >
-          <Text className="text-base font-bold text-white mt-[35px] ml-4">
+          <Text className="text-base font-bold text-white mt-[40px] ml-4">
             SMARTFIELDS
           </Text>
           <View className="flex justify-center items-start h-[70%] mx-4">
@@ -95,7 +95,7 @@ const LoginScreen = ({ navigation }) => {
             Forgot Password?
           </Text>
           <TouchableOpacity
-            className="bg-[#17a34ad0] p-3 rounded-xl mb-4"
+            className="bg-[#17A34A] p-3 rounded-xl mb-4"
             onPress={() => navigation.navigate("homePage")}
           >
             <Text className="text-center text-sm font-semibold text-white">
@@ -103,7 +103,7 @@ const LoginScreen = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <Text
-            className="mb-8 text-center"
+            className="mb-8 text-center text-[#7D7B7B]"
             onPress={() => navigation.navigate("signup")}
             style={{
               fontSize: 12,

@@ -73,7 +73,7 @@ export default function Welcome(props) {
       <View style={{ alignItems: "center", marginTop: 20 }}>
         <Text
           style={{
-            fontSize: hp(7),
+            fontSize: hp(6),
             fontWeight: "bold",
             color: "white",
             letterSpacing: 2,

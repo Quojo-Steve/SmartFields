@@ -5,7 +5,7 @@ import BlogScreen from "../screens/BlogScreen";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ navigation }) => {
   return (
     <Tab.Navigator
       initialRouteName="capture"
@@ -109,7 +109,7 @@ const Tabs = () => {
                 height: 70,
                 borderRadius: 50,
                 borderWidth: focused ? 0 : 1,
-                borderColor: "#e7e6e6"
+                borderColor: "#e7e6e6",
               }}
             >
               <Image
@@ -162,6 +162,12 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="profile"
+        // listeners={{
+        //   tabPress: (e) => {
+        //     e.preventDefault();
+        //     navigation.navigate("login");
+        //   },
+        // }}
         component={BlogScreen}
         options={{
           tabBarIcon: ({ focused }) => (
