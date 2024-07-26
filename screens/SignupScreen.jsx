@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TextInput,
   Platform,
+  ActivityIndicator,
   Text,
   View,
 } from "react-native";
@@ -25,16 +26,16 @@ const SignupScreen = ({ navigation }) => {
       if (!email || !password || !confirm)
         return Toast.error("Fill all required fields!");
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if(!emailRegex.test(email)) return Toast.error("Enter valid email")
+      if (!emailRegex.test(email)) return Toast.error("Enter valid email");
       if (confirm != password) return Toast.error("Passwords do not match!");
-      setisLoading(true)
-      
+      setisLoading(true);
+
       const res = await register(email, password);
       // console.log(res)
       navigation.navigate("homePage");
-      setisLoading(false)
+      setisLoading(false);
     } catch (error) {
-      setisLoading(false)
+      setisLoading(false);
       console.log(error.response.data);
       Toast.error(error.response.data.message || "Something went wrong...");
     }
@@ -146,10 +147,9 @@ const SignupScreen = ({ navigation }) => {
               <ActivityIndicator size={"small"} color={"#fff"} />
             ) : (
               <Text className="text-center text-sm font-semibold text-white">
-              Sign Up
-            </Text>
+                Sign Up
+              </Text>
             )}
-            
           </TouchableOpacity>
           <Text
             className="mb-8 text-center text-[#7D7B7B]"

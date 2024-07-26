@@ -25,14 +25,14 @@ const LoginScreen = ({ navigation }) => {
       if (!email || !password) return Toast.error("Fill all required fields!");
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) return Toast.error("Enter valid email");
-      setisLoading(true)
+      setisLoading(true);
 
       const res = await login(email, password);
       // console.log(res);
       navigation.navigate("homePage");
-      setisLoading(false)
+      setisLoading(false);
     } catch (error) {
-      setisLoading(false)
+      setisLoading(false);
       console.log(error.response.data);
       Toast.error(error.response.data.message || "Something went wrong...");
     }

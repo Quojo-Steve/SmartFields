@@ -84,7 +84,7 @@ const HomeScreen = () => {
                 resizeMode="contain"
               />
               <Text style={styles.overlayText} className="mb-4">
-                Take a Video or upload a Piture, SmartField makes the
+                Take a Video or upload a Picture, SmartField makes the
                 predictions! Save your Farm.
               </Text>
             </View>
@@ -141,8 +141,10 @@ const HomeScreen = () => {
               </View>
               {!prediction ? (
                 <View className="h-[400px] w-full flex justify-center items-center">
-                  <ActivityIndicator size={"small"} color={"#048232"}/>
-                  <Text className="text-[#02020291] mt-4">One moment please...</Text>
+                  <ActivityIndicator size={"small"} color={"#048232"} />
+                  <Text className="text-[#02020291] mt-4">
+                    One moment please...
+                  </Text>
                 </View>
               ) : (
                 <View className="w-full">
