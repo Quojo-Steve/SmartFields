@@ -9,9 +9,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../contex/AuthContex";
 
 export default function Welcome(props) {
+  const {currentUser} = useContext(AuthContext)
+
   const ring1padding = useSharedValue(0);
   const ring2padding = useSharedValue(0);
   useEffect(() => {
@@ -22,8 +25,14 @@ export default function Welcome(props) {
       ring2padding.value = withSpring(ring2padding.value + hp(5.5));
     }, 100);
 
-    setTimeout(() => props.navigation.navigate("firstPage"), 2500);
-  }, []);
+    setTimeout(() => {
+      if(currentUser?.login){
+        props.navigation.navigate("homePage")
+      }else{
+        props.navigation.navigate("firstPage")
+      }
+    }, 2500);
+  }, [currentUser]);
 
   const ring1Style = useAnimatedStyle(() => {
     return {

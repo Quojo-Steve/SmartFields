@@ -42,7 +42,7 @@ const SignupScreen = ({ navigation }) => {
   };
   return (
     <View className="flex-1 bg-[#17A34A]">
-      <ToastManager />
+      <ToastManager width={"100%"}/>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className="h-[68%] w-full">
         <ImageBackground

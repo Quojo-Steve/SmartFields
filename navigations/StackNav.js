@@ -4,6 +4,7 @@ import Tabs from "./Tabs";
 import FirstScreen from "../screens/FirstScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
+import CreateBlog from "../screens/CreateBlog";
 
 export default StackNav = () => {
   const Stack = createNativeStackNavigator();
@@ -40,6 +41,14 @@ export default StackNav = () => {
       <Stack.Screen
         name="signup"
         component={SignupScreen}
+        options={{
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="createBlog"
+        component={CreateBlog}
         options={{
           gestureEnabled: false,
           headerLeft: () => null,

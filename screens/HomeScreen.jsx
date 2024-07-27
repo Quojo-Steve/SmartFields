@@ -13,7 +13,6 @@ import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import FormattedText from "../components/FormattedText";
 import { AuthContext } from "../contex/AuthContex";
-// import { fetch } from '@tensorflow/tfjs-react-native';
 
 const HomeScreen = () => {
   const { Url } = useContext(AuthContext);

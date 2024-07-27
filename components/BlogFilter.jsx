@@ -1,21 +1,17 @@
 import { Text, View, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../contex/AuthContex";
 
 const BlogFilter = () => {
+  const {categories} = useContext(AuthContext)
   const [selectedOption, setselectedOption] = useState("All");
-  const filterOptions = [
-    { name: "All" },
-    { name: "Sensors" },
-    { name: "Ai Detection" },
-    { name: "Diseases" },
-    { name: "Solution" },
-  ];
+  
   const handlePress = (key) => {
     setselectedOption(key);
   };
   return (
     <View className="flex flex-row justify-around">
-      {filterOptions.map((option, index) => (
+      {categories.map((option, index) => (
         <Pressable
           style={({ pressed }) => [
             {
