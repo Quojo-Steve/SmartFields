@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       setisLoading(false);
       console.log(error.response.data);
-      Toast.error(error.response.data.message || "Something went wrong...");
+      Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
   };
   return (

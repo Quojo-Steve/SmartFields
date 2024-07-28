@@ -36,8 +36,8 @@ const SignupScreen = ({ navigation }) => {
       setisLoading(false);
     } catch (error) {
       setisLoading(false);
-      console.log(error.response.data);
-      Toast.error(error.response.data.message || "Something went wrong...");
+      console.log(error);
+      Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
   };
   return (

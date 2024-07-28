@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import FormattedText from "../components/FormattedText";
 import { AuthContext } from "../contex/AuthContex";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const HomeScreen = () => {
   const { Url } = useContext(AuthContext);
@@ -64,6 +65,7 @@ const HomeScreen = () => {
       }
     } catch (error) {
       console.log(error);
+      Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
   };
 
@@ -71,6 +73,7 @@ const HomeScreen = () => {
 
   return (
     <ScrollView>
+      <ToastManager width={"100%"}/>
       <View className="min-h-screen flex flex-col items-center overflow-hidden px-4 pt-[70px]  bg-[#FAFBFC]">
         <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
