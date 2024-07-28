@@ -31,6 +31,7 @@ const CreateBlog = ({ navigation }) => {
 
   const handleSetCategory = (name) => {
     try {
+      // console.log(name)
       if (selectedCategories.includes(name)) {
         const filter = selectedCategories.filter((data) => data != name);
         setselectedCategories(filter);
@@ -94,7 +95,7 @@ const CreateBlog = ({ navigation }) => {
     } catch (error) {
       setisLoading(false);
       console.log(error);
-      Toast.error(error.response.data.message || "Something went wrong...");
+      Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
   };
 
@@ -105,7 +106,7 @@ const CreateBlog = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex"
       >
-        <ScrollView>
+        <ScrollView className="pt-6">
           <View className="px-4 py-6">
             <View className="flex flex-row justify-between items-center">
               <Text className="text-[25px] font-semibold text-[#35363A] capitalize">
