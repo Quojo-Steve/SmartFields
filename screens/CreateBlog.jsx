@@ -87,6 +87,7 @@ const CreateBlog = ({ navigation }) => {
       const res = await axios.post(`${Url}/post/create`, formData, {
         headers: {
           Authorization: `Bearer ${currentUser.accessToken}`,
+          'Content-Type': 'multipart/form-data',
         },
       });
       //   console.log(res.data);

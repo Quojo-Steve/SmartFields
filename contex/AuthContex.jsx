@@ -8,7 +8,6 @@ export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   // const Url = "http://172.20.10.3:8000/api";
-  // const Url = "http://192.168.1.139:8000/api";
   const Url = "https://smartfield-api.onrender.com/api";
 
   const categories = [
@@ -40,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
     const getUser = async () => {
       const storedData = await AsyncStorage.getItem("user");
       const user = storedData ? JSON.parse(storedData) : null;
-      setCurrentUser(user);
+      setCurrentUser(null);
     };
     if (!currentUser) {
       getUser();

@@ -1,7 +1,7 @@
 import React from "react";
-import { Modal, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Modal, Text, TouchableOpacity, View } from "react-native";
 
-const DeleteModal = ({ visible, onConfirm, onCancel }) => {
+const DeleteModal = ({ visible, onConfirm, onCancel, loading }) => {
   return (
     <Modal
       transparent={true}
@@ -25,8 +25,15 @@ const DeleteModal = ({ visible, onConfirm, onCancel }) => {
             <TouchableOpacity
               className="flex-1 ml-2 p-3 bg-red-600 rounded-lg items-center"
               onPress={onConfirm}
+              disabled={loading}
             >
-              <Text className="text-white font-bold">Delete</Text>
+              {
+                loading ? (
+                  <ActivityIndicator color={"#fff"}/>
+                ): (
+                  <Text className="text-white font-bold">Delete</Text>
+                )
+              }
             </TouchableOpacity>
           </View>
         </View>

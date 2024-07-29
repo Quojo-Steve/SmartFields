@@ -8,12 +8,14 @@ import {
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
+  Share
 } from "react-native";
 import {
   HandThumbUpIcon,
   PaperAirplaneIcon,
   XCircleIcon,
 } from "react-native-heroicons/outline";
+import { HandThumbUpIcon as HandSolid } from "react-native-heroicons/solid";
 import { AuthContext } from "../contex/AuthContex";
 import moment from "moment/moment";
 import DeleteModal from "./DeleteModal";
@@ -25,6 +27,9 @@ const BlogPosts = () => {
   const [refresh, setrefresh] = useState(false);
   const [selectedPost, setselectedPost] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isActionLoading, setisActionLoading] = useState(false);
+
+  const [likedPosts, setlikedPosts] = useState([]);
 
   const setUp = async () => {
     try {
@@ -37,18 +42,100 @@ const BlogPosts = () => {
     }
   };
 
+  const handleLike = async (id) => {
+    try {
+      if (likedPosts.includes(id)) {
+        setlikedPosts(likedPosts.filter((data) => data != id));
+        const response = await axios.post(
+          `${Url}/post/${id}/unLike`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.accessToken}`,
+            },
+          }
+        );
+      } else {
+        const post = posts.filter((data) => data.pkid == id);
+        if (post[0]?.likeUsers?.includes(currentUser.uid)) {
+          const response = await axios.post(
+            `${Url}/post/${id}/unLike`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${currentUser.accessToken}`,
+              },
+            }
+          );
+          setUp();
+        } else {
+          setlikedPosts((prev) => [...prev, id]);
+          const response = await axios.post(
+            `${Url}/post/${id}/like`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${currentUser.accessToken}`,
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      Toast.error(error?.response?.data?.message || "Something went wrong...");
+    }
+  };
+
+  const handleShare = async (id) => {
+    try {
+      const message = `Heyyy!🖐
+      Checkout this awesome post on SmartFields!😉✨
+      ${Url}/${id}`
+      const result = await Share.share({message: message})
+      if(result.action == Share.sharedAction) {
+        console.log("shared")
+        const response = await axios.post(
+          `${Url}/post/${id}/share`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.accessToken}`,
+            },
+          }
+        );
+        setUp()
+        // if(result.activityType){
+        //   console.log("shared with " + result.activityType)
+        // }
+      }else if(result.activityType == Share.dismissedAction){
+        // console.log("share dissmised")
+      }
+    } catch (error) {
+      console.log(error);
+      Toast.error(error?.response?.data?.message || "Something went wrong...");
+    }
+  }
+
   const handleDelete = async () => {
     try {
-      const response = await axios.put(`${Url}/post/${selectedPost}/delete`, {
-        headers: {
-          Authorization: `Bearer ${currentUser.accessToken}`,
-        },
-      });
+      setisActionLoading(true);
+      const response = await axios.put(
+        `${Url}/post/${selectedPost}/delete`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      );
       setModalVisible(false);
-      Toast.success("Post deleted successfully")
-      setUp()
+      Toast.success("Post deleted successfully");
+      setisActionLoading(false);
+      setUp();
     } catch (error) {
       setModalVisible(false);
+      setisActionLoading(false);
       console.log(error);
       Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
@@ -57,7 +144,7 @@ const BlogPosts = () => {
   useEffect(() => {
     setUp();
   }, []);
-  // console.log(currentUser, posts);
+  // console.log(currentUser);
   return (
     <View className="w-full">
       <ToastManager width={"100%"} />
@@ -132,18 +219,31 @@ const BlogPosts = () => {
                     }
                   >
                     <View className="flex flex-row">
-                      <View className="flex flex-row items-center gap-1">
+                      <TouchableOpacity
+                        onPress={() => handleLike(post.pkid)}
+                        className="flex flex-row items-center gap-1"
+                      >
                         <Text className="text-[18px] text-[#ACAAAA]">
-                          0 likes
+                          {likedPosts.includes(post.pkid)
+                            ? post.likeUsers?.includes(currentUser.uid)
+                              ? post.likeCount
+                              : post.likeCount + 1
+                            : post.likeCount}{" "}
+                          likes
                         </Text>
-                        <HandThumbUpIcon color={"#35363A"} />
-                      </View>
-                      <View className="flex flex-row items-center gap-1 ml-3">
+                        {likedPosts.includes(post.pkid) ||
+                        post.likeUsers?.includes(currentUser.uid) ? (
+                          <HandSolid color={"#35363A"} />
+                        ) : (
+                          <HandThumbUpIcon color={"#35363A"} />
+                        )}
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={()=>handleShare(post.pkid)} className="flex flex-row items-center gap-1 ml-3">
                         <Text className="text-[18px] text-[#ACAAAA]">
-                          0 shares
+                          {post.shareCount} shares
                         </Text>
                         <PaperAirplaneIcon color={"#35363A"} />
-                      </View>
+                      </TouchableOpacity>
                     </View>
                     <View className={post.imagepath && "mt-3"}>
                       <Text className="text-[18px] text-[#35363A] font-semibold">
@@ -183,6 +283,7 @@ const BlogPosts = () => {
         visible={modalVisible}
         onConfirm={handleDelete}
         onCancel={() => setModalVisible(false)}
+        loading={isActionLoading}
       />
     </View>
   );
