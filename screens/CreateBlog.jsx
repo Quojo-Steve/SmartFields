@@ -11,11 +11,12 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { AuthContext } from "../contex/AuthContex";
+import { AuthContext } from "../context/AuthContext";
 import ToastManager, { Toast } from "toastify-react-native";
 import {
   CheckIcon,
-  ArrowLeftIcon,
+  ArrowUturnLeftIcon,
+  ChevronLeftIcon,
   XCircleIcon,
 } from "react-native-heroicons/outline";
 import * as ImagePicker from "expo-image-picker";
@@ -112,21 +113,18 @@ const CreateBlog = ({ navigation }) => {
         className="flex"
       >
         <ScrollView className="pt-6">
-          <View className="px-4 py-6">
-            <View className="flex flex-row justify-between items-center">
-              <Text className="text-[25px] font-semibold text-[#35363A] capitalize">
-                Add blog post
-              </Text>
-              <TouchableOpacity
-                className="flex flex-row items-center"
-                onPress={() => navigation.navigate("blog")}
-              >
-                <ArrowLeftIcon size={15} color={"#000"} />
-                <Text className="text-[16px] ml-1 font-semibold text-[#35363A] capitalize ">
-                  back
-                </Text>
-              </TouchableOpacity>
-            </View>
+          <View className="flex flex-row items-center">
+            <TouchableOpacity
+              className="flex flex-row items-center"
+              onPress={() => navigation.navigate("blog")}
+            >
+              <ChevronLeftIcon size={35} color={"#000"} />
+            </TouchableOpacity>
+            <Text className="text-[25px] font-semibold text-[#35363A] capitalize">
+              Add blog post
+            </Text>
+          </View>
+          <View className="px-4 pb-6 pt-2">
             <View className="mt-8">
               <Text className="text-[16px] font-semibold text-[#35363A] capitalize">
                 Select category

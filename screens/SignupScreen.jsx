@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../contex/AuthContex";
+import { AuthContext } from "../context/AuthContext";
 import ToastManager, { Toast } from "toastify-react-native";
 
 const SignupScreen = ({ navigation }) => {

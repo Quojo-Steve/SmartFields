@@ -12,7 +12,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import FormattedText from "../components/FormattedText";
-import { AuthContext } from "../contex/AuthContex";
+import { AuthContext } from "../context/AuthContext";
 import ToastManager, { Toast } from "toastify-react-native";
 
 const HomeScreen = () => {

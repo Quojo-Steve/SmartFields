@@ -10,7 +10,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../contex/AuthContex";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Welcome(props) {
   const {currentUser} = useContext(AuthContext)

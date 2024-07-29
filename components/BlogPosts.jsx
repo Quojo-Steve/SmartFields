@@ -16,7 +16,7 @@ import {
   XCircleIcon,
 } from "react-native-heroicons/outline";
 import { HandThumbUpIcon as HandSolid } from "react-native-heroicons/solid";
-import { AuthContext } from "../contex/AuthContex";
+import { AuthContext } from "../context/AuthContext";
 import moment from "moment/moment";
 import DeleteModal from "./DeleteModal";
 import ToastManager, { Toast } from "toastify-react-native";

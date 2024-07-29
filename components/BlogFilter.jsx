@@ -1,6 +1,6 @@
 import { Text, View, Pressable } from "react-native";
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../contex/AuthContex";
+import { AuthContext } from "../context/AuthContext";
 
 const BlogFilter = ({selectedOption, setselectedOption}) => {
   const {categories} = useContext(AuthContext)
