@@ -13,7 +13,11 @@ import {
 } from "react-native";
 import { AuthContext } from "../contex/AuthContex";
 import ToastManager, { Toast } from "toastify-react-native";
-import { CheckIcon, ArrowLeftIcon, XCircleIcon } from "react-native-heroicons/outline";
+import {
+  CheckIcon,
+  ArrowLeftIcon,
+  XCircleIcon,
+} from "react-native-heroicons/outline";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 
@@ -87,7 +91,7 @@ const CreateBlog = ({ navigation }) => {
       const res = await axios.post(`${Url}/post/create`, formData, {
         headers: {
           Authorization: `Bearer ${currentUser.accessToken}`,
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
       //   console.log(res.data);
@@ -146,62 +150,68 @@ const CreateBlog = ({ navigation }) => {
                 </TouchableOpacity>
               ))}
             </View>
-            <View className="mt-8">
-              <Text className="text-[16px] font-semibold text-[#35363A] capitalize">
-                Add Details
-              </Text>
-              <TextInput
-                placeholder="Title"
-                className="flex-1 mt-2 px-2 ml-2 rounded-[10px] h-[45px] bg-[#ebebeb]"
-                keyboardType="default"
-                onChangeText={setTitle}
-              />
-            </View>
-            {!image ? (
-              <View className="mt-[20px] w-full">
-                <View className="bg-[#E9F2F4] border border-dashed border-[#6CCAE8] flex flex-col p-4 justify-center items-center rounded-[10px] h-[210px] w-full">
-                  <Image
-                    source={require("../assets/images/upload.png")}
-                    className="h-[50px] w-[50px]"
-                  />
-                  <Text className="text-center text-[14px] text-[#35363A] my-4">
-                    Please use this field to upload a picture of your blog post
-                  </Text>
-                  <TouchableOpacity
-                    className=" bg-[#095295] flex justify-center items-center rounded-[10px] h-[45px] w-[150px]"
-                    onPress={() => uploadImage("gallery")}
-                  >
-                    <Text className="text-center font-semibold text-white text-[14px] ">
-                      Upload
+            <ScrollView>
+              <View className="mt-8">
+                <Text className="text-[16px] font-semibold text-[#35363A] capitalize">
+                  Add Details
+                </Text>
+                <TextInput
+                  placeholder="Title"
+                  className="flex-1 mt-2 px-2 ml-2 rounded-[10px] min-h-[45px] bg-[#ebebeb]"
+                  keyboardType="default"
+                  onChangeText={setTitle}
+                />
+              </View>
+              {!image ? (
+                <View className="mt-[20px] w-full">
+                  <View className="bg-[#E9F2F4] border border-dashed border-[#6CCAE8] flex flex-col p-4 justify-center items-center rounded-[10px] h-[210px] w-full">
+                    <Image
+                      source={require("../assets/images/upload.png")}
+                      className="h-[50px] w-[50px]"
+                    />
+                    <Text className="text-center text-[14px] text-[#35363A] my-4">
+                      Please use this field to upload a picture of your blog
+                      post
                     </Text>
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      className=" bg-[#095295] flex justify-center items-center rounded-[10px] h-[45px] w-[150px]"
+                      onPress={() => uploadImage("gallery")}
+                    >
+                      <Text className="text-center font-semibold text-white text-[14px] ">
+                        Upload
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            ) : (
-              <View className="mt-[25px] w-full">
-                <View className="flex flex-col relative border border-dashed border-[#6CCAE8] rounded-[10px] p-2 justify-center items-center w-full">
-                  <Image
-                    source={{ uri: image }}
-                    className="h-[200px] w-full rounded-[10px]"
-                  />
-                  <TouchableOpacity className="absolute top-0 right-0 p-2 bg-white shadow-lg rounded-full" onPress={()=> setimage("")}>
-                    <XCircleIcon color={"#000"}/>
-                  </TouchableOpacity>
+              ) : (
+                <View className="mt-[70px] w-full">
+                  <View className="flex flex-col relative border border-dashed border-[#6CCAE8] rounded-[10px] p-2 justify-center items-center w-full">
+                    <Image
+                      source={{ uri: image }}
+                      className="h-[200px] w-full rounded-[10px] object-cover"
+                    />
+                    <TouchableOpacity
+                      className="absolute top-0 right-0 p-2 bg-white shadow-lg rounded-full"
+                      onPress={() => setimage("")}
+                    >
+                      <XCircleIcon color={"#000"} />
+                    </TouchableOpacity>
+                  </View>
                 </View>
+              )}
+              <View className="mt-8">
+                <TextInput
+                  placeholder="Content of Blog"
+                  className="flex-1 mt-2 px-2 ml-2 rounded-[10px] min-h-[120px] bg-[#ebebeb]"
+                  keyboardType="default"
+                  multiline
+                  numberOfLines={4}
+                  onChangeText={setContent}
+                />
               </View>
-            )}
-            <View className="mt-8">
-              <TextInput
-                placeholder="Content of Blog"
-                className="flex-1 mt-2 px-2 ml-2 rounded-[10px] h-[120px] bg-[#ebebeb]"
-                keyboardType="default"
-                multiline
-                numberOfLines={4}
-                onChangeText={setContent}
-              />
-            </View>
+            </ScrollView>
             <TouchableOpacity
-              className="bg-[#048232] p-3 rounded-xl mt-4"
+              className="bg-[#048232] p-3 rounded-xl"
               onPress={handleCreate}
               disabled={isLoading}
             >

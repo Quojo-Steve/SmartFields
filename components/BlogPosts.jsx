@@ -207,7 +207,7 @@ const BlogPosts = () => {
                     {post.imagepath && (
                       <Image
                         source={{
-                          uri: `${Url}/uploads/${post.imagepath}`,
+                          uri: `${post.imagepath}`,
                         }}
                         className="w-full h-[190px] rounded-[10px] object-cover bg-[#00000015]"
                       />

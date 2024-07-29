@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
     const getUser = async () => {
       const storedData = await AsyncStorage.getItem("user");
       const user = storedData ? JSON.parse(storedData) : null;
-      setCurrentUser(null);
+      setCurrentUser(user);
     };
     if (!currentUser) {
       getUser();
