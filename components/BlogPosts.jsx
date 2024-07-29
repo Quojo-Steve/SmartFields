@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
-  Share
+  Share,
 } from "react-native";
 import {
   HandThumbUpIcon,
@@ -21,13 +21,15 @@ import moment from "moment/moment";
 import DeleteModal from "./DeleteModal";
 import ToastManager, { Toast } from "toastify-react-native";
 
-const BlogPosts = () => {
+const BlogPosts = ({ category }) => {
   const { Url, currentUser } = useContext(AuthContext);
   const [posts, setPosts] = useState(null);
+  const [displayedPosts, setdisplayedPosts] = useState(null);
   const [refresh, setrefresh] = useState(false);
   const [selectedPost, setselectedPost] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [isActionLoading, setisActionLoading] = useState(false);
+  const [isFilter, setisFilter] = useState(false);
 
   const [likedPosts, setlikedPosts] = useState([]);
 
@@ -36,6 +38,7 @@ const BlogPosts = () => {
       const res = await axios.get(`${Url}/post/allPosts`);
       setPosts(null);
       setPosts(res.data);
+      setdisplayedPosts(res.data);
       // console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -91,10 +94,9 @@ const BlogPosts = () => {
     try {
       const message = `Heyyy!🖐
       Checkout this awesome post on SmartFields!😉✨
-      ${Url}/${id}`
-      const result = await Share.share({message: message})
-      if(result.action == Share.sharedAction) {
-        console.log("shared")
+      ${Url}/${id}`;
+      const result = await Share.share({ message: message });
+      if (result.action == Share.sharedAction) {
         const response = await axios.post(
           `${Url}/post/${id}/share`,
           {},
@@ -104,18 +106,18 @@ const BlogPosts = () => {
             },
           }
         );
-        setUp()
+        setUp();
         // if(result.activityType){
         //   console.log("shared with " + result.activityType)
         // }
-      }else if(result.activityType == Share.dismissedAction){
+      } else if (result.activityType == Share.dismissedAction) {
         // console.log("share dissmised")
       }
     } catch (error) {
       console.log(error);
       Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
-  }
+  };
 
   const handleDelete = async () => {
     try {
@@ -144,6 +146,36 @@ const BlogPosts = () => {
   useEffect(() => {
     setUp();
   }, []);
+
+  useEffect(() => {
+    setisFilter(false);
+    if (!category) return;
+    if (category == "All") {
+      setdisplayedPosts(posts);
+    } else {
+      setisFilter(true);
+      if (category == "Sensors") {
+        setdisplayedPosts(
+          posts.filter((data) => data.categories.includes("Sensors"))
+        );
+      }
+      if (category == "Ai Detection") {
+        setdisplayedPosts(
+          posts.filter((data) => data.categories.includes("Ai Detection"))
+        );
+      }
+      if (category == "Diseases") {
+        setdisplayedPosts(
+          posts.filter((data) => data.categories.includes("Diseases"))
+        );
+      }
+      if (category == "Solution") {
+        setdisplayedPosts(
+          posts.filter((data) => data.categories.includes("Solution"))
+        );
+      }
+    }
+  }, [category]);
   // console.log(currentUser);
   return (
     <View className="w-full">
@@ -161,10 +193,10 @@ const BlogPosts = () => {
           />
         }
       >
-        {posts ? (
+        {displayedPosts ? (
           <>
-            {posts.length > 0 ? (
-              posts.map((post, index) => (
+            {displayedPosts.length > 0 ? (
+              displayedPosts.map((post, index) => (
                 <View className="my-4" key={index}>
                   <View className="flex flex-row justify-between items-center">
                     <View className="flex flex-row gap-2 items-center">
@@ -238,7 +270,10 @@ const BlogPosts = () => {
                           <HandThumbUpIcon color={"#35363A"} />
                         )}
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={()=>handleShare(post.pkid)} className="flex flex-row items-center gap-1 ml-3">
+                      <TouchableOpacity
+                        onPress={() => handleShare(post.pkid)}
+                        className="flex flex-row items-center gap-1 ml-3"
+                      >
                         <Text className="text-[18px] text-[#ACAAAA]">
                           {post.shareCount} shares
                         </Text>
@@ -266,7 +301,9 @@ const BlogPosts = () => {
             ) : (
               <View className="h-[600px] w-full flex justify-center items-center">
                 <Text className="text-[#02020291] mt-4">
-                  Create the first post...
+                  {isFilter
+                    ? "No posts found... "
+                    : "Create the first post... "}
                 </Text>
               </View>
             )}

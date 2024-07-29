@@ -1,11 +1,12 @@
 import { StatusBar, StyleSheet, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import NoteSvg from "../assets/Svg/NoteSvg";
 import BlogFilter from "../components/BlogFilter";
 import BlogPosts from "../components/BlogPosts";
 
 const BlogScreen = ({ navigation }) => {
+  const [selectedOption, setselectedOption] = useState("All");
   return (
     <View className="min-h-screen flex flex-col overflow-hidden pt-[60px] bg-[#FAFBFC]">
       <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
@@ -19,11 +20,11 @@ const BlogScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View className="mt-3">
-          <BlogFilter />
+          <BlogFilter selectedOption={selectedOption} setselectedOption={setselectedOption}/>
         </View>
       </View>
       <View className="mt-[10px]">
-        <BlogPosts />
+        <BlogPosts category={selectedOption}/>
       </View>
     </View>
   );

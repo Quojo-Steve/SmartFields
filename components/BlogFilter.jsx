@@ -2,9 +2,8 @@ import { Text, View, Pressable } from "react-native";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../contex/AuthContex";
 
-const BlogFilter = () => {
+const BlogFilter = ({selectedOption, setselectedOption}) => {
   const {categories} = useContext(AuthContext)
-  const [selectedOption, setselectedOption] = useState("All");
   
   const handlePress = (key) => {
     setselectedOption(key);
