@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
-import BlogScreen from "../screens/BlogScreen";
+import { HomeScreen, BlogScreen, HistoryScreen, ProfileScreen } from "../screens";
 
 const Tab = createBottomTabNavigator();
 
@@ -127,7 +126,7 @@ const Tabs = ({ navigation }) => {
       />
       <Tab.Screen
         name="history"
-        component={BlogScreen}
+        component={HistoryScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -168,7 +167,7 @@ const Tabs = ({ navigation }) => {
         //     navigation.navigate("login");
         //   },
         // }}
-        component={BlogScreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

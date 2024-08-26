@@ -203,9 +203,9 @@ const BlogPosts = ({ category }) => {
                       {post.userProfilePicture ? (
                         <Image
                           source={{
-                            uri: `${Url}/uploads/${post.userProfilePicture}`,
+                            uri: `${post.userProfilePicture}`,
                           }}
-                          className="w-[40px] h-[40px] rounded-full object-cover"
+                          className="w-[40px] h-[40px] rounded-full object-cover bg-gray-200"
                         />
                       ) : (
                         <Image

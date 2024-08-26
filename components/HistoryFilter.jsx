@@ -1,15 +1,17 @@
 import { Text, View, Pressable } from "react-native";
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 
-const BlogFilter = ({selectedOption, setselectedOption}) => {
-  const {categories} = useContext(AuthContext)
+const HistoryFilter = ({selectedOption, setselectedOption}) => {
+  const categories = [
+    { name: "All" },
+    { name: "Scans" },
+    { name: "Blog Posts" },
+  ]
   
   const handlePress = (key) => {
     setselectedOption(key);
   };
   return (
-    <View className="flex flex-row justify-around">
+    <View className="flex flex-row ">
       {categories.map((option, index) => (
         <Pressable
           style={({ pressed }) => [
@@ -32,4 +34,4 @@ const BlogFilter = ({selectedOption, setselectedOption}) => {
   );
 };
 
-export default BlogFilter;
+export default HistoryFilter;

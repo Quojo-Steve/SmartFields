@@ -15,7 +15,6 @@ import { AuthContext } from "../context/AuthContext";
 import ToastManager, { Toast } from "toastify-react-native";
 import {
   CheckIcon,
-  ArrowUturnLeftIcon,
   ChevronLeftIcon,
   XCircleIcon,
 } from "react-native-heroicons/outline";

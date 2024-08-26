@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
-  // const Url = "http://172.20.10.3:8000/api";
+  // const Url = "http://10.100.49.60:8000/api";
   const Url = "https://smartfield-api.onrender.com/api";
 
   const categories = [
@@ -35,6 +35,24 @@ export const AuthContextProvider = ({ children }) => {
     return response.data;
   };
 
+  const getUser = async () => {
+    const response = await axios.get(`${Url}/auth/getUser`, {
+      headers: {
+        Authorization: `Bearer ${currentUser.accessToken}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    setCurrentUser(response.data.user);
+    AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+    return response.data;
+  };
+
+  const logOut = async () => {
+    setCurrentUser(null);
+    AsyncStorage.setItem("user", JSON.stringify(null));
+    return response.data;
+  };
+
   useEffect(() => {
     const getUser = async () => {
       const storedData = await AsyncStorage.getItem("user");
@@ -49,7 +67,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, login, register, Url, categories }}
+      value={{ currentUser, login, register, Url, categories, logOut, getUser }}
     >
       {children}
     </AuthContext.Provider>

@@ -16,7 +16,7 @@ import { AuthContext } from "../context/AuthContext";
 import ToastManager, { Toast } from "toastify-react-native";
 
 const HomeScreen = () => {
-  const { Url } = useContext(AuthContext);
+  const { Url, currentUser } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [prediction, setPrediction] = useState(null);
 
@@ -58,8 +58,9 @@ const HomeScreen = () => {
 
         const response = await axios.post(apiUrl, formData, {
           headers: {
+            Authorization: `Bearer ${currentUser.accessToken}`,
             "Content-Type": "multipart/form-data",
-          },
+          }
         });
         setPrediction(response.data);
       }
@@ -95,7 +96,7 @@ const HomeScreen = () => {
               onPress={uploadImage}
             >
               <Text className="text-center font-semibold text-white text-[14px]">
-                Take a Video
+                Take a Picture
               </Text>
             </TouchableOpacity>
             <View className="pt-[50px] w-full">

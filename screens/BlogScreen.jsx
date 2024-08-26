@@ -1,9 +1,7 @@
 import { StatusBar, StyleSheet, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import SearchBar from "../components/SearchBar";
 import NoteSvg from "../assets/Svg/NoteSvg";
-import BlogFilter from "../components/BlogFilter";
-import BlogPosts from "../components/BlogPosts";
+import { BlogPosts, BlogFilter, SearchBar } from "../components";
 
 const BlogScreen = ({ navigation }) => {
   const [selectedOption, setselectedOption] = useState("All");

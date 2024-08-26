@@ -31,7 +31,7 @@ export default function Welcome(props) {
       }else{
         props.navigation.navigate("firstPage")
       }
-    }, 2500);
+    }, 2000);
   }, [currentUser]);
 
   const ring1Style = useAnimatedStyle(() => {

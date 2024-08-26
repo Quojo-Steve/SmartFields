@@ -1,10 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Welcome from "../screens/WelcomeScreen";
 import Tabs from "./Tabs";
-import FirstScreen from "../screens/FirstScreen";
-import LoginScreen from "../screens/LoginScreen";
-import SignupScreen from "../screens/SignupScreen";
-import CreateBlog from "../screens/CreateBlog";
+import { Welcome, FirstScreen, LoginScreen, SignupScreen, CreateBlog, EditProfile } from "../screens";
+
 
 export default StackNav = () => {
   const Stack = createNativeStackNavigator();
@@ -49,6 +46,14 @@ export default StackNav = () => {
       <Stack.Screen
         name="createBlog"
         component={CreateBlog}
+        options={{
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="editProfile"
+        component={EditProfile}
         options={{
           gestureEnabled: false,
           headerLeft: () => null,
