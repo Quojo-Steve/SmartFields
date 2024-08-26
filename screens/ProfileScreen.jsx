@@ -52,7 +52,7 @@ export default function ProfileScreen({ navigation }) {
               }}
             />
           }>
-      <View className="p-5">
+      <View className="p-4 pt-10">
         <View className="flex flex-row gap-2 items-center">
           {currentUser?.picturePath ? (
             <Image

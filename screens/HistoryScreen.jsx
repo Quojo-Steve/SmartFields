@@ -63,7 +63,7 @@ export default function HistoryScreen() {
 
   return (
     <SafeAreaView className>
-      <View className="p-4">
+      <View className="p-4 pt-10">
         <ToastManager width={"100%"} />
         <Text className="text-[25px] font-semibold text-[#35363A] capitalize">
           History
@@ -93,7 +93,7 @@ export default function HistoryScreen() {
                   <Text className="mb-1 font-semibold text-[14px] uppercase">
                     {moment(item.createDate).calendar()}
                   </Text>
-                  <Text className="text-[14px]">{item.description}</Text>
+                  <Text className="text-[14px]">You {item.description}</Text>
                   <TouchableOpacity
                     onPress={() => {
                       setModalVisible(true);

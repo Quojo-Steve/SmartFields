@@ -96,7 +96,7 @@ export default function EditProfile({ navigation }) {
           Edit Profile
         </Text>
       </View>
-      <View className="p-5">
+      <View className="p-4 pt-10">
         <TouchableOpacity
           onPress={uploadImage}
           className="w-full flex justify-center items-center"
