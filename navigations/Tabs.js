@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeScreen, BlogScreen, HistoryScreen, ProfileScreen } from "../screens";
+import { HomeScreen, BlogScreen, HistoryScreen, ProfileScreen, ActualHomeScreen } from "../screens";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +25,7 @@ const Tabs = ({ navigation }) => {
     >
       <Tab.Screen
         name="home"
-        component={BlogScreen}
+        component={ActualHomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

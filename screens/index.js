@@ -8,7 +8,7 @@ import ProfileScreen from "./ProfileScreen"
 import SignupScreen from "./SignupScreen"
 import Welcome from "./WelcomeScreen"
 import EditProfile from "./EditProfile"
-
+import ActualHomeScreen from "./ActualHomeScreen"
 
 export {
     CreateBlog,
@@ -21,4 +21,5 @@ export {
     HistoryScreen,
     ProfileScreen,
     EditProfile,
+    ActualHomeScreen,
 }

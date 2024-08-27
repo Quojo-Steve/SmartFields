@@ -23,7 +23,6 @@ export default function HistoryScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selected, setselected] = useState(null);
 
-
   const setUp = async () => {
     try {
       const response = await axios.get(`${Url}/history/getUserHistory`, {
@@ -63,18 +62,20 @@ export default function HistoryScreen() {
 
   return (
     <SafeAreaView className>
-      <View className="p-4 pt-10">
-        <ToastManager width={"100%"} />
-        <Text className="text-[25px] font-semibold text-[#35363A] capitalize">
-          History
-        </Text>
-        <View className="mt-3">
-          <HistoryFilter
-            selectedOption={selectedOption}
-            setselectedOption={setselectedOption}
-          />
+      <ToastManager width={"100%"} />
+      <View>
+        <View className="p-4 pt-10">
+          <Text className="text-[25px] font-semibold text-[#35363A] capitalize">
+            History
+          </Text>
+          <View className="mt-3">
+            <HistoryFilter
+              selectedOption={selectedOption}
+              setselectedOption={setselectedOption}
+            />
+          </View>
         </View>
-        <ScrollView
+        <ScrollView className="p-4"
           refreshControl={
             <RefreshControl
               refreshing={refresh}
@@ -86,7 +87,7 @@ export default function HistoryScreen() {
             />
           }
         >
-          <View className="mt-8">
+          <View>
             {displayedData ? (
               displayedData.map((item, index) => (
                 <View key={index} className="my-4">

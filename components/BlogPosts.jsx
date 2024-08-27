@@ -30,6 +30,8 @@ const BlogPosts = ({ category }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isActionLoading, setisActionLoading] = useState(false);
   const [isFilter, setisFilter] = useState(false);
+  const [expandedPostId, setExpandedPostId] = useState(null);
+  // console.log(displayedPosts);
 
   const [likedPosts, setlikedPosts] = useState([]);
 
@@ -54,19 +56,19 @@ const BlogPosts = ({ category }) => {
           {},
           {
             headers: {
-              Authorization: `Bearer ${currentUser.accessToken}`,
+              Authorization: `Bearer ${currentUser?.accessToken}`,
             },
           }
         );
       } else {
         const post = posts.filter((data) => data.pkid == id);
-        if (post[0]?.likeUsers?.includes(currentUser.uid)) {
+        if (post[0]?.likeUsers?.includes(currentUser?.uid)) {
           const response = await axios.post(
             `${Url}/post/${id}/unLike`,
             {},
             {
               headers: {
-                Authorization: `Bearer ${currentUser.accessToken}`,
+                Authorization: `Bearer ${currentUser?.accessToken}`,
               },
             }
           );
@@ -197,7 +199,7 @@ const BlogPosts = ({ category }) => {
           <>
             {displayedPosts.length > 0 ? (
               displayedPosts.map((post, index) => (
-                <View className="my-4" key={index}>
+                <View className={`${index == 0 ? "mt-2" : "mt-14 "}`} key={index}>
                   <View className="flex flex-row justify-between items-center">
                     <View className="flex flex-row gap-2 items-center">
                       {post.userProfilePicture ? (
@@ -257,14 +259,14 @@ const BlogPosts = ({ category }) => {
                       >
                         <Text className="text-[18px] text-[#ACAAAA]">
                           {likedPosts.includes(post.pkid)
-                            ? post.likeUsers?.includes(currentUser.uid)
+                            ? post.likeUsers?.includes(currentUser?.uid)
                               ? post.likeCount
                               : post.likeCount + 1
                             : post.likeCount}{" "}
                           likes
                         </Text>
                         {likedPosts.includes(post.pkid) ||
-                        post.likeUsers?.includes(currentUser.uid) ? (
+                        post.likeUsers?.includes(currentUser?.uid) ? (
                           <HandSolid color={"#35363A"} />
                         ) : (
                           <HandThumbUpIcon color={"#35363A"} />
@@ -285,15 +287,25 @@ const BlogPosts = ({ category }) => {
                         {post.title}
                       </Text>
                       <Text className="text-[16px] text-[#35363A] mt-1">
-                        {post.content}
+                        {expandedPostId === post.pkid
+                          ? post.content
+                          : post.content.length > 150
+                          ? post.content.substring(0, 150) + "..."
+                          : post.content}
                       </Text>
-                      <Text
-                        className={`text-[14px] text-[#048232] underline ${
-                          !post.imagepath && "mb-3"
-                        }`}
-                      >
-                        Read More
-                      </Text>
+                      {(expandedPostId != post.pkid && post.content.length > 150) && (
+                        <TouchableOpacity
+                          onPress={() => setExpandedPostId(post.pkid)}
+                        >
+                          <Text
+                            className={`text-[14px] text-[#048232] underline ${
+                              !post.imagepath && "mb-3"
+                            }`}
+                          >
+                            Read More
+                          </Text>
+                        </TouchableOpacity>
+                      )}
                     </View>
                   </View>
                 </View>

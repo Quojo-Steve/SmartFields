@@ -133,7 +133,7 @@ export default function EditProfile({ navigation }) {
           </View>
           <View className="flex flex-row items-end justify-center">
             <PencilSquareIcon color={"#0000008c"} />
-            <Text className="lowercase text-[#0000008c]">Upload new photo</Text>
+            <Text className="lowercase text-[#0000008c]">Update profile image</Text>
           </View>
         </TouchableOpacity>
         <ScrollView className="mt-12">

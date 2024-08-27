@@ -31,7 +31,7 @@ export default function ProfileScreen({ navigation }) {
       setisActionLoading(false);
       setisModalActive(false);
       console.log(error);
-      Toast.error(error?.response?.data?.message || "Something went wrong...");
+    //   Toast.error(error?.response?.data?.message || "Something went wrong...");
     }
   };
 
