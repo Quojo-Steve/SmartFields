@@ -21,7 +21,7 @@ import moment from "moment/moment";
 import DeleteModal from "./DeleteModal";
 import ToastManager, { Toast } from "toastify-react-native";
 
-const BlogPosts = ({ category }) => {
+const BlogPosts = ({ category, setCategory, searchValue, setSearchValue }) => {
   const { Url, currentUser } = useContext(AuthContext);
   const [posts, setPosts] = useState(null);
   const [displayedPosts, setdisplayedPosts] = useState(null);
@@ -41,6 +41,8 @@ const BlogPosts = ({ category }) => {
       setPosts(null);
       setPosts(res.data);
       setdisplayedPosts(res.data);
+      setSearchValue("")
+      setCategory("All")
       // console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -151,6 +153,7 @@ const BlogPosts = ({ category }) => {
 
   useEffect(() => {
     setisFilter(false);
+    setSearchValue("")
     if (!category) return;
     if (category == "All") {
       setdisplayedPosts(posts);
@@ -158,26 +161,43 @@ const BlogPosts = ({ category }) => {
       setisFilter(true);
       if (category == "Sensors") {
         setdisplayedPosts(
-          posts.filter((data) => data.categories.includes("Sensors"))
+          posts?.filter((data) => data.categories.includes("Sensors"))
         );
       }
       if (category == "Ai Detection") {
         setdisplayedPosts(
-          posts.filter((data) => data.categories.includes("Ai Detection"))
+          posts?.filter((data) => data.categories.includes("Ai Detection"))
         );
       }
       if (category == "Diseases") {
         setdisplayedPosts(
-          posts.filter((data) => data.categories.includes("Diseases"))
+          posts?.filter((data) => data.categories.includes("Diseases"))
         );
       }
       if (category == "Solution") {
         setdisplayedPosts(
-          posts.filter((data) => data.categories.includes("Solution"))
+          posts?.filter((data) => data.categories.includes("Solution"))
         );
       }
     }
   }, [category]);
+
+  useEffect(() => {
+    setCategory("All")
+    setisFilter(false);
+    if (searchValue.trim() == "") {
+      setdisplayedPosts(posts);
+    } else {
+      setdisplayedPosts(
+        posts?.filter(
+          (data) =>
+            data.username.toLowerCase().includes(searchValue.toLowerCase()) ||
+            data.email.toLowerCase().includes(searchValue.toLowerCase()) ||
+            data.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      );
+    }
+  }, [searchValue]);
   // console.log(currentUser);
   return (
     <View className="w-full">
@@ -199,7 +219,10 @@ const BlogPosts = ({ category }) => {
           <>
             {displayedPosts.length > 0 ? (
               displayedPosts.map((post, index) => (
-                <View className={`${index == 0 ? "mt-2" : "mt-14 "}`} key={index}>
+                <View
+                  className={`${index == 0 ? "mt-2" : "mt-14 "}`}
+                  key={index}
+                >
                   <View className="flex flex-row justify-between items-center">
                     <View className="flex flex-row gap-2 items-center">
                       {post.userProfilePicture ? (
@@ -207,7 +230,7 @@ const BlogPosts = ({ category }) => {
                           source={{
                             uri: `${post.userProfilePicture}`,
                           }}
-                          className="w-[40px] h-[40px] rounded-full object-cover bg-gray-200"
+                          className="w-[40px] h-[40px] rounded-full object-cover bg-[#048232]"
                         />
                       ) : (
                         <Image
@@ -226,7 +249,8 @@ const BlogPosts = ({ category }) => {
                         </Text>
                       </View>
                     </View>
-                    {currentUser?.email == post.email && (
+                    {(currentUser?.email == post.email ||
+                      currentUser?.status == 1) && (
                       <TouchableOpacity
                         onPress={() => {
                           setselectedPost(post.pkid);
@@ -293,19 +317,20 @@ const BlogPosts = ({ category }) => {
                           ? post.content.substring(0, 150) + "..."
                           : post.content}
                       </Text>
-                      {(expandedPostId != post.pkid && post.content.length > 150) && (
-                        <TouchableOpacity
-                          onPress={() => setExpandedPostId(post.pkid)}
-                        >
-                          <Text
-                            className={`text-[14px] text-[#048232] underline ${
-                              !post.imagepath && "mb-3"
-                            }`}
+                      {expandedPostId != post.pkid &&
+                        post.content.length > 150 && (
+                          <TouchableOpacity
+                            onPress={() => setExpandedPostId(post.pkid)}
                           >
-                            Read More
-                          </Text>
-                        </TouchableOpacity>
-                      )}
+                            <Text
+                              className={`text-[14px] text-[#048232] underline ${
+                                !post.imagepath && "mb-3"
+                              }`}
+                            >
+                              Read More
+                            </Text>
+                          </TouchableOpacity>
+                        )}
                     </View>
                   </View>
                 </View>

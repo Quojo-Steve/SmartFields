@@ -111,7 +111,7 @@ const CreateBlog = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex"
       >
-        <ScrollView className="pt-6">
+        <ScrollView className="pt-4">
           <View className="flex flex-row items-center">
             <TouchableOpacity
               className="flex flex-row items-center"

@@ -31,7 +31,7 @@ export default function HistoryScreen() {
           "Content-Type": "multipart/form-data",
         },
       });
-      //   console.log(response.data);
+        // console.log(response.data);
       sethistoryData(response.data);
     } catch (error) {
       console.log(error);

@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Tabs from "./Tabs";
-import { Welcome, FirstScreen, LoginScreen, SignupScreen, CreateBlog, EditProfile } from "../screens";
+import { Welcome, FirstScreen, LoginScreen, SignupScreen, CreateBlog, EditProfile, ManageUsers, EditUser } from "../screens";
 
 
 export default StackNav = () => {
@@ -54,6 +54,22 @@ export default StackNav = () => {
       <Stack.Screen
         name="editProfile"
         component={EditProfile}
+        options={{
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="manageUsers"
+        component={ManageUsers}
+        options={{
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="editUsers"
+        component={EditUser}
         options={{
           gestureEnabled: false,
           headerLeft: () => null,

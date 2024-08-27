@@ -70,9 +70,10 @@ export default function EditProfile({ navigation }) {
           "Content-Type": "multipart/form-data",
         },
       });
-      getUser()
-    //   console.log(response)
+      //   console.log(response)
       setloading(false);
+      getUser()
+      Toast.success("Profile upated successfully...");
     } catch (error) {
       setloading(false);
       console.log(error);
@@ -85,7 +86,7 @@ export default function EditProfile({ navigation }) {
   return (
     <SafeAreaView>
       <ToastManager width={"100%"} />
-      <View className="flex flex-row items-center">
+      <View className="flex flex-row items-center pt-4">
         <TouchableOpacity
           className="flex flex-row items-center"
           onPress={() => navigation.navigate("profile")}
@@ -118,7 +119,7 @@ export default function EditProfile({ navigation }) {
                     source={{
                       uri: currentUser.picturePath,
                     }}
-                    className="w-[100px] h-[100px] rounded-full object-cover bg-gray-200"
+                    className="w-[100px] h-[100px] rounded-full object-cover bg-[#048232]"
                   />
                 ) : (
                   <Image

@@ -13,12 +13,14 @@ import {
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import ToastManager, { Toast } from "toastify-react-native";
+import { ForgotPasswordModal } from "../components";
 
 const LoginScreen = ({ navigation }) => {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setisLoading] = useState(false);
+  const [isModelOpen, setisModelOpen] = useState(false)
 
   const handleLogin = async () => {
     try {
@@ -39,7 +41,7 @@ const LoginScreen = ({ navigation }) => {
   };
   return (
     <View className="flex-1 bg-[#17A34A]">
-      <ToastManager width={"100%"}/>
+      <ToastManager width={"100%"} />
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <View className="h-[68%] w-full">
         <ImageBackground
@@ -117,16 +119,18 @@ const LoginScreen = ({ navigation }) => {
               secureTextEntry
             />
           </View>
-          <Text
-            className="mb-8 text-right"
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              lineHeight: 15.96,
-            }}
-          >
-            Forgot Password?
-          </Text>
+          <TouchableOpacity onPress={()=> setisModelOpen(true)}>
+            <Text
+              className="mb-8 text-right"
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                lineHeight: 15.96,
+              }}
+            >
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             className="bg-[#17A34A] p-3 rounded-xl mb-4"
             onPress={handleLogin}
@@ -153,6 +157,10 @@ const LoginScreen = ({ navigation }) => {
           </Text>
         </View>
       </KeyboardAvoidingView>
+      <ForgotPasswordModal
+        visible={isModelOpen}
+        onCancel={() => setisModelOpen(false)}
+      />
     </View>
   );
 };

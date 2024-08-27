@@ -2,10 +2,12 @@ import BlogFilter from "./BlogFilter"
 import BlogPosts from "./BlogPosts"
 import ConfirmModal from "./ConfirmModal"
 import DeleteModal from "./DeleteModal"
+import ForgotPasswordModal from "./ForgotPasswordModal"
 import FormattedText from "./FormattedText"
 import HistoryFilter from "./HistoryFilter"
 import HistoryModal from "./HistoryModal"
 import SearchBar from "./SearchBar"
+import UpdatePasswordModel from "./UpdatePasswordModel"
 
 export {
     FormattedText,
@@ -16,4 +18,6 @@ export {
     HistoryFilter,
     HistoryModal,
     ConfirmModal,
+    ForgotPasswordModal,
+    UpdatePasswordModel,
 }

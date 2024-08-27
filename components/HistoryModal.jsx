@@ -92,6 +92,7 @@ export default function HistoryModal({ visible, onCancel, selected }) {
                       <View className="w-full">
                         <View className="w-full h-[1px] bg-[#02020246] my-4"></View>
                         <View className="w-full">
+                          <Text className="text-[18px] text-[#35363A]">{historyData?.message}</Text>
                           <FormattedText
                             responseString={historyData?.results}
                           />
@@ -120,6 +121,7 @@ export default function HistoryModal({ visible, onCancel, selected }) {
                       </View>
                     ) : (
                       <View className={"mt-3 "}>
+                        <Text className="text-[18px] text-[#35363A]">{historyData?.message}</Text>
                         <View className={historyData?.imagepath && "mt-3"}>
                           <Text className="text-[18px] text-[#35363A] font-semibold">
                             {historyData?.title}

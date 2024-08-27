@@ -6,17 +6,20 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import all from "../assets/images/all.png";
 import sensors from "../assets/images/sensors.png";
 import disease from "../assets/images/disease.png";
 import solve from "../assets/images/solve.png";
 import ai from "../assets/images/ai.png";
+import axios from "axios";
 
 export default function ActualHomeScreen({ navigation }) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, Url } = useContext(AuthContext);
   const [selectedOption, setselectedOption] = useState("Yearly");
   const categories = [
     { name: "Yearly" },
@@ -24,18 +27,112 @@ export default function ActualHomeScreen({ navigation }) {
     { name: "Daily" },
   ];
 
-  const postCategories = [
-    { name: "All", image: all, count: 324, high: true },
-    { name: "Sensors", image: sensors, count: 719, high: true },
-    { name: "AI Detection", image: ai, count: 1, high: false },
-    { name: "Diseases", image: disease, count: 215, high: true },
-    { name: "Solutions", image: solve, count: 15, high: false },
-  ];
+  const [postCategories, setpostCategories] = useState([
+    { name: "All", image: all, count: 0, high: true },
+    { name: "Sensors", image: sensors, count: 0, high: true },
+    { name: "AI Detection", image: ai, count: 0, high: true },
+    { name: "Diseases", image: disease, count: 0, high: true },
+    { name: "Solution", image: solve, count: 0, high: true },
+  ]);
 
+  const [postData, setpostData] = useState(null);
+  const [displayedPostData, setDisplayedpostData] = useState(null);
+  const [refresh, setrefresh] = useState(false);
+
+  const setUp = async () => {
+    try {
+      setpostData(null);
+      setselectedOption("Yearly");
+      const res = await axios.get(`${Url}/post/allData`, {
+        headers: {
+          Authorization: `Bearer ${currentUser.accessToken}`,
+        },
+      });
+      setpostData(res.data);
+      setDisplayedpostData(res.data);
+      // console.log(res.data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateData = () => {
+    for (const Cat of postCategories) {
+      setpostCategories((prevCategories) =>
+        prevCategories.map((cat) =>
+          cat.name === Cat.name
+            ? {
+                ...cat,
+                count: displayedPostData.filter((item) =>
+                  item.categories.toLowerCase().includes(Cat.name.toLowerCase())
+                ).length,
+                high:
+                  displayedPostData.filter((item) =>
+                    item.categories
+                      .toLowerCase()
+                      .includes(Cat.name.toLowerCase())
+                  ).length >= 5,
+              }
+            : cat
+        )
+      );
+    }
+    setpostCategories((prevCategories) =>
+      prevCategories.map((category) =>
+        category.name === "All"
+          ? {
+              ...category,
+              count: displayedPostData.length,
+              high: displayedPostData.length >= 5,
+            }
+          : category
+      )
+    );
+  };
+
+  const filterData = (name) => {
+    const now = new Date();
+    const year = new Date(now.getFullYear(), 0, 1);
+    const month = new Date(now.getFullYear(), now.getMonth(), 1);
+    let filter = postData || [];
+
+    if (name == "Yearly") {
+      filter = filter.filter((item) => new Date(item.createDate) > year);
+    }
+    if (name == "Monthly") {
+      filter = filter.filter((item) => new Date(item.createDate) > month);
+    }
+    if (name == "Daily") {
+      filter = filter.filter((item) => new Date(item.createDate) > now);
+    }
+    setDisplayedpostData(filter);
+  };
+
+  useEffect(() => {
+    if (displayedPostData) {
+      updateData();
+    }
+  }, [displayedPostData]);
+
+  useEffect(() => {
+    setUp();
+  }, []);
   //   console.log(currentUser)
   return (
     <SafeAreaView>
-      <ScrollView className="min-h-full">
+      <ScrollView
+        className="min-h-full"
+        refreshControl={
+          <RefreshControl
+            refreshing={refresh}
+            onRefresh={async () => {
+              setrefresh(true);
+              await setUp();
+              setrefresh(false);
+            }}
+          />
+        }
+      >
         <View className="p-4 pt-10">
           <View className="flex flex-row justify-between items-center">
             <View>
@@ -50,7 +147,7 @@ export default function ActualHomeScreen({ navigation }) {
                   source={{
                     uri: currentUser.picturePath,
                   }}
-                  className="w-[60px] h-[60px] rounded-full object-cover bg-gray-200"
+                  className="w-[60px] h-[60px] rounded-full object-cover bg-[#048232]"
                 />
               ) : (
                 <Image
@@ -66,24 +163,31 @@ export default function ActualHomeScreen({ navigation }) {
             <View className="flex flex-row justify-between">
               <View className="flex flex-col gap-2">
                 <Text className="text-[#F5F5F5] text-[12px]">Total Scans</Text>
-                <Text className="text-[#EFCC17] font-semibold text-[20px]">
-                  52,627
+                <Text className="text-[#EFCC17] text-center font-semibold text-[20px]">
+                  {(displayedPostData && displayedPostData[0]?.scanCount) ||
+                    "N/A"}
+                  {!displayedPostData && <ActivityIndicator color={"#fff"} />}
                 </Text>
               </View>
               <View className="flex flex-col gap-2">
                 <Text className="text-[#F5F5F5] text-[12px] capitalize">
                   Total posts
                 </Text>
-                <Text className="text-[#F5F5F5] font-semibold text-[20px]">
-                  287
+                <Text className="text-[#F5F5F5] text-center font-semibold text-[20px]">
+                  {displayedPostData && displayedPostData.length}
+                  {!displayedPostData && <ActivityIndicator color={"#fff"} />}
                 </Text>
               </View>
               <View className="flex flex-col gap-2">
                 <Text className="text-[#F5F5F5] text-[12px] capitalize">
                   Total likes
                 </Text>
-                <Text className="text-[#F5F5F5] font-semibold text-[20px]">
-                  752,900
+                <Text className="text-[#F5F5F5] text-center font-semibold text-[20px]">
+                  {displayedPostData &&
+                    displayedPostData?.reduce((sum, post) => {
+                      return sum + post.likeCount;
+                    }, 0)}
+                  {!displayedPostData && <ActivityIndicator color={"#fff"} />}
                 </Text>
               </View>
             </View>
@@ -97,6 +201,7 @@ export default function ActualHomeScreen({ navigation }) {
                   ]}
                   onPress={() => {
                     setselectedOption(option.name);
+                    filterData(option.name);
                   }}
                   key={index}
                   className={`rounded-[30px] px-4 min-w-[50px] h-[30px] ${
@@ -147,7 +252,10 @@ export default function ActualHomeScreen({ navigation }) {
                   </Text>
                 </View>
               ))}
-              <TouchableOpacity className="shadow-2xl py-4 bg-[#B7F3CD] w-[100px] border rounded-[10px] border-[#50D480] flex flex-col justify-center items-center" onPress={()=> navigation.navigate("createBlog")}>
+              <TouchableOpacity
+                className="shadow-2xl py-4 bg-[#B7F3CD] w-[100px] border rounded-[10px] border-[#50D480] flex flex-col justify-center items-center"
+                onPress={() => navigation.navigate("createBlog")}
+              >
                 <Text className="font-semibold text-[12px] text-[#048232] text-center mt-2">
                   Create more posts
                 </Text>

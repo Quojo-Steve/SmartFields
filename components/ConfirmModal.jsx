@@ -31,7 +31,7 @@ export default function ConfirmModal({
               className="flex-1 mr-2 p-3 bg-gray-300 rounded-lg items-center"
               onPress={onCancel}
             >
-              <Text className="text-white font-bold">Cancel</Text>
+              <Text className="text-[#555555] font-bold">Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className="flex-1 ml-2 p-3 bg-red-600 rounded-lg items-center"
