@@ -121,7 +121,7 @@ export default function HistoryScreen() {
               </View>
             )}
           </View>
-          <View className="h-[250px]"></View>
+          <View className="h-[400px]"></View>
         </ScrollView>
       </View>
       <HistoryModal

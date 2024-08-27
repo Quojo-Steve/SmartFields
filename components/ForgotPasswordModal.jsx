@@ -22,11 +22,13 @@ export default function ForgotPasswordModal({ visible, onCancel }) {
     try {
       if (!email) {
         setformStep(1);
+        setloading(false);
         return Toast.error("Fill all required fields!");
       }
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         setformStep(1);
+        setloading(false);
         return Toast.error("Enter valid email");
       }
       const response = await axios.put(`${Url}/auth/forgotPassword`, {

@@ -25,10 +25,12 @@ export default function UpdatePasswordModel({ visible, onCancel }) {
         setloading(true);
       if (!newpassword || !confirmPassword) {
         setformStep(1);
+        setloading(false);
         return Toast.error("Fill all required fields!");
       }
       if (newpassword !== confirmPassword) {
         setformStep(1);
+        setloading(false);
         return Toast.error("Passwords don't match!");
       }
       const response = await axios.put(

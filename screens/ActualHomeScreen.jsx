@@ -227,7 +227,7 @@ export default function ActualHomeScreen({ navigation }) {
                 Post categories
               </Text>
             </View>
-            <View className="pt-8 flex flex-row flex-wrap gap-8 justify-between">
+            <View className="pt-8 flex flex-row flex-wrap gap-6 justify-between">
               {postCategories.map((item, index) => (
                 <View
                   key={index}
