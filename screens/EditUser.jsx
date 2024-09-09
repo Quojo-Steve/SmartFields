@@ -30,28 +30,29 @@ export default function EditUser({ route, navigation }) {
   const [number, setnumber] = useState(user?.number);
   const [apiUrl, setapiUrl] = useState(user?.apiUrl);
 
-  const handleUpdate = async () => {
-    try {
-      setloading(true);
 
-      const response = await axios.put(
-        `${Url}/auth/updateUserAdmin`,
-        { IoTUrl: apiUrl, uid: user.uid },
-        {
-          headers: {
-            Authorization: `Bearer ${currentUser.accessToken}`,
-          },
-        }
-      );
-      //   console.log(response)
-      setloading(false);
-      Toast.success("User upated successfully...");
-    } catch (error) {
-      setloading(false);
-      console.log(error);
-      Toast.error(error?.response?.data?.message || "Something went wrong...");
-    }
-  };
+  // const handleUpdate = async () => {
+  //   try {
+  //     setloading(true);
+
+  //     const response = await axios.put(
+  //       `${Url}/auth/updateUserAdmin`,
+  //       { IoTUrl: apiUrl, uid: user.uid },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${currentUser.accessToken}`,
+  //         },
+  //       }
+  //     );
+  //     //   console.log(response)
+  //     setloading(false);
+  //     Toast.success("User upated successfully...");
+  //   } catch (error) {
+  //     setloading(false);
+  //     console.log(error);
+  //     Toast.error(error?.response?.data?.message || "Something went wrong...");
+  //   }
+  // };
   return (
     <SafeAreaView>
       <ToastManager width={"100%"} />
@@ -91,14 +92,14 @@ export default function EditUser({ route, navigation }) {
           </View>
           <ScrollView className="mt-12">
             <View className="">
-              <Text>IoT API Url</Text>
+              <Text>User ID</Text>
               <TextInput
-                placeholder="IoT API url"
+                placeholder="User ID"
                 className="flex-1 px-4 mt-2 min-h-[45px] bg-[#dee0e0] rounded-[5px]"
-                onChangeText={(text) => setapiUrl(text)}
                 keyboardType="default"
                 autoCapitalize="none"
-                value={apiUrl}
+                value={user.uid}
+                readOnly
               />
             </View>
             <View className="mt-[20px]">
@@ -140,22 +141,22 @@ export default function EditUser({ route, navigation }) {
 
             <View className="flex-row justify-between w-full mt-[70px]">
               <TouchableOpacity
-                className="flex-1 mr-2 p-3 bg-gray-300 rounded-lg items-center"
+                className="flex-1 ml-2 p-3 bg-[#048232] rounded-lg items-center"
                 onPress={() => navigation.navigate("manageUsers")}
               >
-                <Text className="text-[#555555] font-bold">Cancel</Text>
+                <Text className="text-white  font-bold">Back</Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 className="flex-1 ml-2 p-3 bg-[#048232] rounded-lg items-center"
-                disabled={loading}
+                disabled={true}
                 onPress={handleUpdate}
               >
                 {loading ? (
                   <ActivityIndicator color={"#fff"} />
                 ) : (
-                  <Text className="text-white font-bold">Update</Text>
+                  <Text className="text-white font-bold">Back</Text>
                 )}
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View className="h-[250px]"></View>
           </ScrollView>

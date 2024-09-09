@@ -21,6 +21,7 @@ import axios from "axios";
 export default function ActualHomeScreen({ navigation }) {
   const { currentUser, Url } = useContext(AuthContext);
   const [selectedOption, setselectedOption] = useState("Yearly");
+  const [iotData, setIotData] = useState(null)
   const categories = [
     { name: "Yearly" },
     { name: "Monthly" },
@@ -50,12 +51,19 @@ export default function ActualHomeScreen({ navigation }) {
       });
       setpostData(res.data);
       setDisplayedpostData(res.data);
-      // console.log(res.data[0]);
+      const IOTres = await axios.get(`${Url}/iot/getIOTData`, {
+        headers: {
+          Authorization: `Bearer ${currentUser.accessToken}`,
+        },
+      });
+      setIotData(IOTres.data)
+      // console.log(IOTres.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log(iotData)
   const updateData = () => {
     for (const Cat of postCategories) {
       setpostCategories((prevCategories) =>
