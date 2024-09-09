@@ -17,11 +17,13 @@ import disease from "../assets/images/disease.png";
 import solve from "../assets/images/solve.png";
 import ai from "../assets/images/ai.png";
 import axios from "axios";
+import { ChartComponent } from "../components";
 
 export default function ActualHomeScreen({ navigation }) {
   const { currentUser, Url } = useContext(AuthContext);
   const [selectedOption, setselectedOption] = useState("Yearly");
-  const [iotData, setIotData] = useState(null)
+  const [updateValue, setupdateValue] = useState(true)
+
   const categories = [
     { name: "Yearly" },
     { name: "Monthly" },
@@ -42,6 +44,7 @@ export default function ActualHomeScreen({ navigation }) {
 
   const setUp = async () => {
     try {
+      setupdateValue(!updateData)
       setpostData(null);
       setselectedOption("Yearly");
       const res = await axios.get(`${Url}/post/allData`, {
@@ -51,19 +54,12 @@ export default function ActualHomeScreen({ navigation }) {
       });
       setpostData(res.data);
       setDisplayedpostData(res.data);
-      const IOTres = await axios.get(`${Url}/iot/getIOTData`, {
-        headers: {
-          Authorization: `Bearer ${currentUser.accessToken}`,
-        },
-      });
-      setIotData(IOTres.data)
       // console.log(IOTres.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(iotData)
   const updateData = () => {
     for (const Cat of postCategories) {
       setpostCategories((prevCategories) =>
@@ -125,7 +121,7 @@ export default function ActualHomeScreen({ navigation }) {
   useEffect(() => {
     setUp();
   }, []);
-  //   console.log(currentUser)
+  // console.log(currentUser);
   return (
     <SafeAreaView>
       <ScrollView
@@ -229,6 +225,11 @@ export default function ActualHomeScreen({ navigation }) {
               ))}
             </View>
           </View>
+          {currentUser?.status !== 1 && (
+            <View className="mt-10">
+              <ChartComponent update={updateValue}/>
+            </View>
+          )}
           <View className="mt-10">
             <View>
               <Text className="capitalize text-[16px] font-semibold">

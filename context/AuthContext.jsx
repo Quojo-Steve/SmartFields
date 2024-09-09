@@ -9,7 +9,7 @@ export const AuthContextProvider = ({ children }) => {
 
   // const Url = "http://172.32.0.168:8000/api";
   const Url = "https://smartfield-api.onrender.com/api";
-
+  
   const categories = [
     { name: "All" },
     { name: "Sensors" },
