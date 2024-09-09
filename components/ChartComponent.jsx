@@ -31,10 +31,10 @@ export default function ChartComponent({ update }) {
         },
       });
       //   console.log(IOTres.data.response);
-      setIotData(IOTres.data.response);
       sethumidityData(addFrontColor(IOTres.data.response.humidity));
       settemperatureData(addFrontColor(IOTres.data.response.temperature));
       setsmData(addFrontColor(IOTres.data.response.soilMoisture));
+      setIotData(IOTres.data.response);
     } catch (error) {
       console.log(error);
     }

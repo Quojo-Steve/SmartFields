@@ -44,7 +44,7 @@ export default function ActualHomeScreen({ navigation }) {
 
   const setUp = async () => {
     try {
-      setupdateValue(!updateData)
+      setupdateValue(!updateValue)
       setpostData(null);
       setselectedOption("Yearly");
       const res = await axios.get(`${Url}/post/allData`, {
