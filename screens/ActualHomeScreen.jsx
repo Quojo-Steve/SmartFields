@@ -17,7 +17,7 @@ import disease from "../assets/images/disease.png";
 import solve from "../assets/images/solve.png";
 import ai from "../assets/images/ai.png";
 import axios from "axios";
-import { ChartComponent } from "../components";
+import { ChartComponent, ChartKit } from "../components";
 
 export default function ActualHomeScreen({ navigation }) {
   const { currentUser, Url } = useContext(AuthContext);
@@ -227,7 +227,8 @@ export default function ActualHomeScreen({ navigation }) {
           </View>
           {currentUser?.status !== 1 && (
             <View className="mt-10">
-              <ChartComponent update={updateValue}/>
+              {/* <ChartComponent update={updateValue}/> */}
+              <ChartKit update={updateValue}/>
             </View>
           )}
           <View className="mt-10">

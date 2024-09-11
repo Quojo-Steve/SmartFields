@@ -1,6 +1,7 @@
 import BlogFilter from "./BlogFilter"
 import BlogPosts from "./BlogPosts"
 import ChartComponent from "./ChartComponent"
+import ChartKit from "./ChartKit"
 import ConfirmModal from "./ConfirmModal"
 import DeleteModal from "./DeleteModal"
 import ForgotPasswordModal from "./ForgotPasswordModal"
@@ -22,4 +23,5 @@ export {
     ForgotPasswordModal,
     UpdatePasswordModel,
     ChartComponent,
+    ChartKit,
 }

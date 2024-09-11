@@ -45,7 +45,7 @@ export default function ChartComponent({ update }) {
       frontColor: getRandomColor(),
     }));
   };
-  //   console.log(humidityData)
+    console.log(humidityData.map(item=> item.value))
   useEffect(() => {
     setUp();
   }, [update]);
