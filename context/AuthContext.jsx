@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
-  // const Url = "http://10.100.48.142:8000/api";
+  // const Url = "http://10.100.48.119:8000/api";
   const Url = "https://smartfield-api.onrender.com/api";
   
   const categories = [

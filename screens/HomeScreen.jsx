@@ -158,7 +158,7 @@ const HomeScreen = () => {
                         className="flex flex-row justify-between"
                       >
                         <Text className="text-center font-semibold text-[14px]">
-                          {p.className.split(" - ")[1]}
+                          {p.className}
                         </Text>
                         <Text className="text-center font-semibold text-[14px]">
                           {p.probability}
